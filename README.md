@@ -6,17 +6,17 @@
 
 ## 環境設定ファイル
 
-`copy .env.sample .env`
+`cp .env.sample .env`
 
 ## build
 
-docker compose up
+docker compose up -d
 
 ## prompt dataの準備
 
 １列目に記述、下記に保存
 
-`app/input/prompt.csv`
+`app/input/prompts.csv`
 
 ## 実行
 
