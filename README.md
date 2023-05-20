@@ -1,4 +1,4 @@
-# open ai api への並行実行リクエスト
+# open ai api へのリクエストの並列処理（Rate limit 対応）
 
 > 環境要件
 
