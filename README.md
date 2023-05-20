@@ -8,7 +8,7 @@
 
 > 目的
 
-- 大量の prompt リストを Rate limit を考慮して効率よく処理する
+- 大量の prompt リストを Rate limit を考慮しながら効率よく処理する
 
 > 概要
 
@@ -21,7 +21,7 @@
 
 ## build
 
-docker compose up -d
+`docker compose up -d`
 
 ## prompt dataの準備
 
@@ -31,7 +31,7 @@ docker compose up -d
 
 ## 実行
 
-docker exec parallel-completions python3 ./main.py
+`docker exec parallel-completions python3 ./main.py`
 
 ## 実行結果
 
