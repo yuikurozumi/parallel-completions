@@ -1,8 +1,16 @@
-# open ai api へのリクエストの並列処理（Rate limit 対応）
+# OpenAI API Text completion 並列処理
 
-> 環境要件
+> 要件
 
-- docker デスクトップなどをインストール
+- docker
+- open ai APIアカウント
+- 生成済みのfine tuning model
+
+> 目的・概要
+
+- 大量のpromptリスト（CSVファイル）を高速に処理する
+- 生成済みのfine tuning modelを指定
+- Ratelimit 考慮あり
 
 ## 環境設定ファイル
 
