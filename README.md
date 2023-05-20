@@ -19,6 +19,8 @@
 
 `cp .env.sample .env`
 
+- API　key と model ID を設定する
+
 ## build
 
 `docker compose up -d`
