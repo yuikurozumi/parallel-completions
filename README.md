@@ -21,11 +21,16 @@
 
 - API　key と model ID を設定する
 
-## build
+## 初回の　build　と、それ以降の起動
 
 `docker compose up -d`
 
+- 初回の build は少し時間が掛かる
 - 環境設定ファイルを更新した場合は、上記コマンドで起動し直せば、環境変数も更新される
+
+## 停止
+
+`docker compose stop`
 
 ## prompt dataの準備
 
