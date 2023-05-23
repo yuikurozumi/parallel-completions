@@ -6,9 +6,9 @@ import concurrent.futures
 
 openai.api_key = os.getenv("OPENAI_API_KEY")  # OpenAI APIキーを設定
 MODEL = os.getenv("OPENAI_MODEL")  # GPT-3のモデルIDを設定
-RATE_LIMIT = 3000 # 1分あたりのリクエスト数の上限
+RATE_LIMIT = 2800 # 1分あたりのリクエスト数の上限
 SLEEP_TIME = 60  # スリープする秒数（60秒 = 1分）
-LEN_TOKENS_RATE_LIMIT = 250000  # 1分あたりのトークン数の上限
+LEN_TOKENS_RATE_LIMIT = 240000  # 1分あたりのトークン数の上限
 STOP = ["\n"]
 MAX_TOKENS = 100
 CSV_FILE_NAME = "prompts.csv" # input directoryにあるCSVファイルの名前を指定
@@ -22,7 +22,10 @@ def query_completion(prompt):
         max_tokens=MAX_TOKENS,
         stop=STOP
     )
-    return response.choices[0].text.strip()
+    return {
+        "text": response.choices[0].text.strip(),
+        "total_tokens": response.usage.total_tokens,
+    }
 
 def process_prompts(prompts):
     # 並列処理のためのワーカー数を設定
@@ -47,9 +50,9 @@ def process_prompts(prompts):
                     completion = future.result()
                     # 完了した結果の処理
                     print("Completion for prompt:", prompt)
-                    print("Result:", completion)
+                    print("Result:", completion["text"])
                     print("completed_count:", completed_count)
-                    writer.writerow([prompt, completion])  # 結果をCSVファイルに書き込む
+                    writer.writerow([prompt, completion["text"]])  # 結果をCSVファイルに書き込む
                 except Exception as exc:
                     # エラーハンドリング
                     print(f"Error processing prompt: {prompt}, {exc}")
@@ -57,7 +60,7 @@ def process_prompts(prompts):
                 completed_count += 1
                 elapsed_time = time.time() - start_time
 
-                sum_len_tokens += len(completion)
+                sum_len_tokens += completion["total_tokens"]
                 elapsed_time4token = time.time() - start_time4token
 
                 if completed_count % RATE_LIMIT == 0 and elapsed_time < SLEEP_TIME:
