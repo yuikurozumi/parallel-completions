@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
 
   parallel-completions:
@@ -11,3 +11,6 @@ services:
       - "OPENAI_MODEL=${OPENAI_MODEL:-}"
     volumes:
       - ./app:/app
+    ports:
+      - "5001:5000"
+    command: flask run --host=0.0.0.0

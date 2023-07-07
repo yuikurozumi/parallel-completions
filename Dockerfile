@@ -1,11 +1,11 @@
-FROM ubuntu:latest
+FROM python:3.9.5-slim-buster
 
-RUN apt-get update && \
-    apt-get install -y sudo wget vim curl unzip less expect && \
-    apt-get install -y python3.9 python3-pip python3-dev
+RUN pip install --upgrade pip
 
 COPY requirement.txt /tmp
-
 RUN cd /tmp && pip install -r requirement.txt
 
-WORKDIR /app
+# Flask環境変数: Dockerコンテナ内で、Flaskがアプリケーションを正しく検出し、起動できるようになります。
+ENV FLASK_APP=app
+
+WORKDIR /app/flask
