@@ -82,7 +82,7 @@ def query_completion(prompt):
         data = response.json()
         diff = time.time() - req_start
         len_tokens += data['total_tokens']
-        return {'time_takes': diff, 'text': data['text'], 'total_tokens': data['total_tokens']}
+        return {'time_taken': diff, 'text': data['text'], 'total_tokens': data['total_tokens']}
 
     else:
         raise Exception(response.status_code)
@@ -91,7 +91,7 @@ def process_prompts(prompts):
     # 並列処理のためのワーカー数を設定
     num_workers = min(len(prompts), MAX_WORKERS)
     completed_count = 0
-    total_time_takes = 0
+    total_time_taken = 0
 
     output_dir = os.path.join(os.path.dirname(__file__)) + '/output/'
     output_file_path = output_dir + RESULT_CSV_FILE_NAME
@@ -107,12 +107,12 @@ def process_prompts(prompts):
                 try:
                     completion = future.result()
                     writer.writerow([prompt, completion["text"]])  # 結果をCSVファイルに書き込む
-                    total_time_takes += completion["time_takes"]
+                    total_time_taken += completion["time_taken"]
                     completed_count += 1
                 except Exception as exc:
                     # エラーハンドリング
                     print(f"Error processing prompt: {prompt}, {exc}")
-    print("Total threads execution time:", total_time_takes)
+    print("Total threads execution time:", total_time_taken)
 
 
 # CSVファイルからプロンプトを読み込む
