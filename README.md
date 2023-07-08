@@ -40,7 +40,7 @@
 
 ## 実行
 
-`docker exec parallel-completions python3 ./main.py`
+`docker exec parallel-completions python3 ../main.py`
 
 ## 実行結果
 

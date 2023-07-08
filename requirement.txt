@@ -4,3 +4,5 @@ sentence_transformers
 unstructured
 python-dotenv
 openai
+flask==2.0.1
+Flask-Limiter
