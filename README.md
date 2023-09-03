@@ -4,7 +4,7 @@
 
 - docker
 - open ai API アカウント
-- fine tuning model が生成済みであること
+ - fine tuning modelを使う場合は、生成済みmodelのID
 
 > 目的
 
@@ -12,8 +12,10 @@
 
 > 概要
 
-- 生成済みの fine tuning model, 各リクエストパラメタ を指定
-- prompt は指示CSVファイルの１列目に記述、２列目にAPI返却値が記入された結果CSVファイルを出力する
+- Completion API を利用する場合は、指示CSVファイルの１列目に記述、２列目にAPI返却値が記入された結果CSVファイルを出力する
+
+- Chat Completion APIの場合は、CSVの各行は、role,content,role,content,,,のように記述、最終列にAPI返却値が記入された結果CSVファイルを出力する
+
 
 ## 環境設定ファイル
 
@@ -34,14 +36,23 @@
 
 ## prompt dataの準備
 
-１列目に記述、下記に保存
-
-`app/input/prompts.csv`
+- Completion API を利用する場合は、prompt を１列目に記述、下記に保存
+ - `app/input/prompts.csv`
+- Chat Completion の場合は、CSVの各行は、role,content,role,content,,,のように記述、下記に保存
+ - `app/input/messages.csv`
 
 ## 実行
 
-`docker exec parallel-completions python3 ../main.py`
+- Completion API
+ - `docker exec parallel-completions python3 ../main.py`
+
+- Chat Completion API 
+ - `docker exec parallel-completions python3 ../chat_completion.py`
 
 ## 実行結果
 
-`app/output/result.csv`
+- Completion API
+ - `app/output/result.csv`
+
+- Chat Completion API 
+ - `app/output/chat_result.csv`
